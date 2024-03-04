@@ -1,0 +1,26 @@
+version: '3'
+services:
+  # CONFIGURACIÓN SERVIDOR WEB
+  web:
+    build: apache
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./app:/app
+      - ./apache/julio.lan.conf:/etc/apache2/sites-enabled/julio.lan.conf
+      - ./apache/certificados:/certificados
+  # CONFIGURACIÓN BASE DE DATOS
+  bd:
+    image: mysql:latest
+    env_file:
+      - .env
+    volumes:
+    - datos:/var/lib/mysql
+    - ./bd/backup:/docker-entrypoint-initdb.d
+    - ./bd/backup:/backup
+volumes:
+  datos:
+
+
+
