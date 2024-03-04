@@ -19,6 +19,17 @@ services:
     - datos:/var/lib/mysql
     - ./bd/backup:/docker-entrypoint-initdb.d
     - ./bd/backup:/backup
+  # CONFIGURACIÓN DE PHPMYADMIN 
+  bdadmin:
+    image: phpmyadmin:latest
+    links: 
+      - bd
+    ports:
+      - 8080:80
+    environment:
+      PMA_HOST: ${PMA_HOST}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+
 volumes:
   datos:
 
